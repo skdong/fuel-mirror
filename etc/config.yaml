@@ -1,0 +1,13 @@
+threads_num: 10
+ignore_errors_num: 2
+retries_num: 3
+target_dir: "/var/www/nailgun/mirrors"
+pattern_dir: "/usr/share/fuel-mirror"
+base_url: "http://{FUEL_SERVER_IP}:8080/mirrors/"
+mos_version: "9.0"
+openstack_version: "mitaka-9.0"
+
+# uncomment if need
+#   http_proxy: null
+#   https_proxy: null
+#   fuel_server: 10.20.0.2
