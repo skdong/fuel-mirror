@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+* format code
+* set packages
+* revert url builder packetry user object directory
+* fix some bug
+* add info files
+* adapt to new version of packetary
+* adapt to new version of packetry
 * copy from fuel master
 * copy from fuel master
 * Initial commit

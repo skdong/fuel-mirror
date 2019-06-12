@@ -37,7 +37,7 @@ repos:
 
     -   &mos
         name: "mos"
-        uri: "http://2.6.1.2:8080/ubuntu/x86_64"
+        uri: "http://localhost:8080/ubuntu/x86_64"
         suite: "mos$mos_version"
         section: [main, restricted]
         type: "deb"
@@ -118,7 +118,7 @@ packages: &packages
   - name: "anacron"
   - name: "rsyslog-gnutls"
 
-docker_packages: &docker_packages:
+docker_packages: &docker_packages
   - name: docker-ce
 
 
@@ -133,8 +133,15 @@ groups:
         - *ubuntu
         - *ubuntu_updates
         - *ubuntu_security
+        - *mos
+        - *mos_updates
+        - *mos_security
+        - *mos_holdback
 
     docker:
+        - *ubuntu
+        - *ubuntu_updates
+        - *ubuntu_security
         - *docker
 
 

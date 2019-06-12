@@ -27,11 +27,11 @@ repos:
         type: "rpm"
         priority: null
 
-    - &mos
-      name: "mos"
-      uri: http://localhost:8080/mos-centos/x86_64
-      type: "rpm"
-      priority: null
+    -   &mos
+        name: "mos"
+        uri: http://localhost:8080/mos-centos/x86_64
+        type: "rpm"
+        priority: null
 
     -   &docker
         name: "docker"
@@ -86,7 +86,7 @@ docker_packages: &docker_packages
 
 groups:
     centos:
-      - *mos
+        - *mos
         - *centos
         - *centos_updates
         - *centos_extras
@@ -94,7 +94,13 @@ groups:
 
     docker:
         - *docker
+        - *centos
+        - *centos_updates
+        - *centos_extras
+        - *centos_plus
 
 requirements:
-  centos: *packages
-    docker: *docker_packages
+  centos: 
+      packages: *packages
+  docker: 
+      packages: *docker_packages
