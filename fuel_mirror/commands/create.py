@@ -17,7 +17,6 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from fuel_mirror.commands.base import BaseCommand
-from fuel_mirror.common.url_builder import get_url_builder
 
 
 class CreateCommand(BaseCommand):
@@ -27,12 +26,10 @@ class CreateCommand(BaseCommand):
         """See the Command.take_action."""
         data = self.load_data(parsed_args)
         repos_reqs = data.get('requirements', {})
-        inheritance = data.get('inheritance', {})
         target_dir = self.app.config["target_dir"]
 
         total_stats = None
         for group_name, repos in self.get_groups(parsed_args, data):
-            url_builder = get_url_builder(repos[0]["type"])
             repo_manager = self.app.repo_manager_accessor(
                 repos[0]["type"], self.REPO_ARCH
             )
