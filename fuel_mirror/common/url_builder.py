@@ -16,6 +16,7 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+
 def get_url_builder(repotype):
     """Gets the instance of RepoUrlBuilder.
 
@@ -45,7 +46,9 @@ class AptRepoUrlBuilder(RepoUrlBuilder):
 
     @classmethod
     def get_repo_url(cls, repo_data):
-        return repo_data
+        return " ".join(
+            repo_data[x] for x in ("uri", "suite", "section")
+        )
 
 
 class YumRepoUrlBuilder(RepoUrlBuilder):
