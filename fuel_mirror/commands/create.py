@@ -31,25 +31,15 @@ class CreateCommand(BaseCommand):
         target_dir = self.app.config["target_dir"]
 
         total_stats = None
-        import pdb; pdb.set_trace()
         for group_name, repos in self.get_groups(parsed_args, data):
             url_builder = get_url_builder(repos[0]["type"])
             repo_manager = self.app.repo_manager_accessor(
                 repos[0]["type"], self.REPO_ARCH
             )
-            if group_name in inheritance:
-                child_group = inheritance[group_name]
-                dependencies = [
-                    url_builder.get_repo_url(x)
-                    for x in data['groups'][child_group]
-                ]
-            else:
-                dependencies = None
 
             stat = repo_manager.clone_repositories(
-                [url_builder.get_repo_url(x) for x in repos],
+                repos,
                 target_dir,
-                dependencies,
                 repos_reqs.get(group_name)
             )
 

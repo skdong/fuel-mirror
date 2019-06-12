@@ -34,7 +34,8 @@ SCHEMA = {
                     "type": "string"
                 },
                 "section": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {"type": "string"}
                 },
             }
         },

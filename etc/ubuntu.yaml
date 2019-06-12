@@ -1,7 +1,6 @@
 # GLOBAL variables
 ubuntu_baseurl: &ubuntu_baseurl http://archive.ubuntu.com/ubuntu
 mos_baseurl: &mos_baseurl http://mirror.fuel-infra.org/mos-repos/ubuntu/$mos_version
-mos92_baseurl: &mos92_baseurl http://mirror.fuel-infra.org/mos-repos/ubuntu/9.2
 
 fuel_release_match:
    version: $openstack_version
@@ -16,7 +15,7 @@ repos:
         name: "ubuntu"
         uri: *ubuntu_baseurl
         suite: "xenial"
-        section: "main multiverse restricted universe"
+        section: [main, multiverse, restricted, universe]
         type: "deb"
         priority: null
 
@@ -24,7 +23,7 @@ repos:
         name: "ubuntu-updates"
         uri: *ubuntu_baseurl
         suite: "xenial-updates"
-        section: "main multiverse restricted universe"
+        section: [main, multiverse, restricted, universe]
         type: "deb"
         priority: null
 
@@ -32,7 +31,7 @@ repos:
         name: "ubuntu-security"
         uri: *ubuntu_baseurl
         suite: "xenial-security"
-        section: "main multiverse restricted universe"
+        section: [main, multiverse, restricted, universe]
         type: "deb"
         priority: null
 
@@ -40,7 +39,7 @@ repos:
         name: "mos"
         uri: "http://2.6.1.2:8080/ubuntu/x86_64"
         suite: "mos$mos_version"
-        section: "main restricted"
+        section: [main, restricted]
         type: "deb"
         priority: 1050
 
@@ -48,7 +47,7 @@ repos:
         name: "mos-updates"
         uri: *mos_baseurl
         suite: "mos$mos_version-updates"
-        section: "main restricted"
+        section: [main, restricted]
         type: "deb"
         priority: 1050
 
@@ -56,7 +55,7 @@ repos:
         name: "mos-security"
         uri: *mos_baseurl
         suite: "mos$mos_version-security"
-        section: "main restricted"
+        section: [main, restricted]
         type: "deb"
         priority: 1050
 
@@ -64,52 +63,60 @@ repos:
         name: "mos-holdback"
         uri: *mos_baseurl
         suite: "mos$mos_version-holdback"
-        section: "main restricted"
+        section: [main, restricted]
+        type: "deb"
+        priority: 1100
+
+    -   &docker
+        name: "docker"
+        uri: "https://download.docker.com/linux/ubuntu"
+        suite: "xenial"
+        section: [stable]
         type: "deb"
         priority: 1100
 
 # Packages are required to build bootstrap images for a system.
 # The mirror should contiain such packages in addition to local mirror.
 packages: &packages
-     - "daemonize"
-     - "fuel-agent"
-     - "hwloc"
-     - "i40e-dkms"
-     - "linux-firmware"
-     - "linux-headers-generic"
-     - "live-boot"
-     - "live-boot-initramfs-tools"
-     - "mc"
-     - "mcollective"
-     - "msmtp-mta"
-     - "multipath-tools"
-     - "multipath-tools-boot"
-     - "nailgun-agent"
-     - "nailgun-mcagents"
-     - "network-checker"
-     - "ntp"
-     - "ntpdate"
-     - "openssh-client"
-     - "openssh-server"
-     - "puppet"
-     - "squashfs-tools"
-     - "ubuntu-minimal"
-     - "vim"
-     - "wget"
-     - "xz-utils"
-     - "sysfsutils"
-     - "bridge-utils"
-     - "ifenslave"
-     - "irqbalance"
-     - "iputils-arping"
-     - "apt-transport-https"
-     - "linux-image-generic-lts-xenial"
-     - "cloud-init"
-     - "linux-headers-generic-lts-xenial"
-     - "telnet"
-     - "ubuntu-standard"
-     - "anacron"
-     - "rsyslog-gnutls"
+     - name: "daemonize"
+     - name: "fuel-agent"
+     - name: "hwloc"
+     - name: "i40e-dkms"
+     - name: "linux-firmware"
+     - name: "linux-headers-generic"
+     - name: "live-boot"
+     - name: "live-boot-initramfs-tools"
+     - name: "mc"
+     - name: "mcollective"
+     - name: "msmtp-mta"
+     - name: "multipath-tools"
+     - name: "multipath-tools-boot"
+     - name: "nailgun-agent"
+     - name: "nailgun-mcagents"
+     - name: "network-checker"
+     - name: "ntp"
+     - name: "ntpdate"
+     - name: "openssh-client"
+     - name: "openssh-server"
+     - name: "puppet"
+     - name: "squashfs-tools"
+     - name: "ubuntu-minimal"
+     - name: "vim"
+     - name: "wget"
+     - name: "xz-utils"
+     - name: "sysfsutils"
+     - name: "bridge-utils"
+     - name: "ifenslave"
+     - name: "irqbalance"
+     - name: "iputils-arping"
+     - name: "apt-transport-https"
+     - name: "linux-image-generic-lts-xenial"
+     - name: "cloud-init"
+     - name: "linux-headers-generic-lts-xenial"
+     - name: "telnet"
+     - name: "ubuntu-standard"
+     - name: "anacron"
+     - name: "rsyslog-gnutls"
 
 
 groups:
@@ -124,12 +131,16 @@ groups:
         - *ubuntu_updates
         - *ubuntu_security
 
+    docker:
+        - *docker
 
-inheritance:
-    ubuntu: mos
+
+#inheritance:
+#    ubuntu: mos
 
 osnames:
     mos: ubuntu
 
 requirements:
-    ubuntu: *packages
+    ubuntu: 
+      packages: *packages
