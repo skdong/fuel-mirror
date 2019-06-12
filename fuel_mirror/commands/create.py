@@ -31,6 +31,7 @@ class CreateCommand(BaseCommand):
         target_dir = self.app.config["target_dir"]
 
         total_stats = None
+        import pdb; pdb.set_trace()
         for group_name, repos in self.get_groups(parsed_args, data):
             url_builder = get_url_builder(repos[0]["type"])
             repo_manager = self.app.repo_manager_accessor(

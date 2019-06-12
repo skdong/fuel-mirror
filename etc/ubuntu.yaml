@@ -15,7 +15,7 @@ repos:
         main: true
         name: "ubuntu"
         uri: *ubuntu_baseurl
-        suite: "trusty"
+        suite: "xenial"
         section: "main multiverse restricted universe"
         type: "deb"
         priority: null
@@ -23,7 +23,7 @@ repos:
     -   &ubuntu_updates
         name: "ubuntu-updates"
         uri: *ubuntu_baseurl
-        suite: "trusty-updates"
+        suite: "xenial-updates"
         section: "main multiverse restricted universe"
         type: "deb"
         priority: null
@@ -31,14 +31,14 @@ repos:
     -   &ubuntu_security
         name: "ubuntu-security"
         uri: *ubuntu_baseurl
-        suite: "trusty-security"
+        suite: "xenial-security"
         section: "main multiverse restricted universe"
         type: "deb"
         priority: null
 
     -   &mos
         name: "mos"
-        uri: *mos_baseurl
+        uri: "http://2.6.1.2:8080/ubuntu/x86_64"
         suite: "mos$mos_version"
         section: "main restricted"
         type: "deb"
@@ -60,25 +60,9 @@ repos:
         type: "deb"
         priority: 1050
 
-    -   &mos92_updates
-        name: "mos9.2-updates"
-        uri: *mos92_baseurl
-        suite: "mos$mos_version-updates"
-        section: "main restricted"
-        type: "deb"
-        priority: 1050
-
-    -   &mos92_security
-        name: "mos9.2-security"
-        uri: *mos92_baseurl
-        suite: "mos$mos_version-security"
-        section: "main restricted"
-        type: "deb"
-        priority: 1050
-
-    -   &mos92_holdback
-        name: "mos9.2-holdback"
-        uri: *mos92_baseurl
+    -   &mos_holdback
+        name: "mos-holdback"
+        uri: *mos_baseurl
         suite: "mos$mos_version-holdback"
         section: "main restricted"
         type: "deb"
@@ -87,75 +71,45 @@ repos:
 # Packages are required to build bootstrap images for a system.
 # The mirror should contiain such packages in addition to local mirror.
 packages: &packages
-     - "acpi-support"
-     - "anacron"
-     - "aptitude"
-     - "atop"
-     - "acct"
-     - "bash-completion"
-     - "bc"
-     - "build-essential"
-     - "cloud-init"
-     - "conntrackd"
-     - "cpu-checker"
-     - "cpufrequtils"
-     - "debconf-utils"
-     - "devscripts"
-     - "fping"
-     - "git"
-     - "grub-pc"
-     - "htop"
+     - "daemonize"
+     - "fuel-agent"
      - "hwloc"
-     - "ifenslave"
-     - "iperf"
-     - "iptables-persistent"
-     - "irqbalance"
-     - "language-pack-en"
-     - "libapache2-mod-fastcgi"
-     - "libmysqlclient18"
-     - "libicu-dev"
-     - "libnss3-tools"
-     - "libseccomp2"
-     - "linux-firmware-nonfree"
-     - "linux-headers-generic-lts-trusty"
-     - "linux-headers-generic-lts-xenial"
-     - "linux-image-generic-lts-trusty"
-     - "linux-image-generic-lts-xenial"
+     - "i40e-dkms"
+     - "linux-firmware"
+     - "linux-headers-generic"
      - "live-boot"
-     - "livecd-rootfs"
+     - "live-boot-initramfs-tools"
      - "mc"
-     - "memcached"
-     - "monit"
+     - "mcollective"
      - "msmtp-mta"
      - "multipath-tools"
      - "multipath-tools-boot"
-     - "nginx"
+     - "nailgun-agent"
+     - "nailgun-mcagents"
+     - "network-checker"
      - "ntp"
+     - "ntpdate"
+     - "openssh-client"
      - "openssh-server"
-     - "percona-toolkit"
-     - "percona-xtrabackup"
-     - "pm-utils"
      - "puppet"
-     - "python-lesscpy"
-     - "python-pip"
-     - "rsyslog-gnutls"
-     - "rsyslog-relp"
-     - "screen"
      - "squashfs-tools"
-     - "swift-plugin-s3"
-     - "sysfsutils"
-     - "sysstat"
-     - "telnet"
-     - "tmux"
-     - "traceroute"
-     - "ubuntu-standard"
+     - "ubuntu-minimal"
      - "vim"
-     - "virt-what"
-     - "xinetd"
-     - "xmlstarlet"
-     - "tftpd-hpa"
-     - "syslinux"
-     - "systemd-shim"
+     - "wget"
+     - "xz-utils"
+     - "sysfsutils"
+     - "bridge-utils"
+     - "ifenslave"
+     - "irqbalance"
+     - "iputils-arping"
+     - "apt-transport-https"
+     - "linux-image-generic-lts-xenial"
+     - "cloud-init"
+     - "linux-headers-generic-lts-xenial"
+     - "telnet"
+     - "ubuntu-standard"
+     - "anacron"
+     - "rsyslog-gnutls"
 
 
 groups:
@@ -163,9 +117,7 @@ groups:
         - *mos
         - *mos_updates
         - *mos_security
-        - *mos92_updates
-        - *mos92_security
-        - *mos92_holdback
+        - *mos_holdback
 
     ubuntu:
         - *ubuntu

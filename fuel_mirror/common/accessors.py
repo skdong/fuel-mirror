@@ -29,8 +29,8 @@ def get_packetary_accessor(**kwargs):
     import packetary
 
     return functools.partial(
-        packetary.RepositoryApi.create,
-        packetary.Context(packetary.Configuration(**kwargs))
+        packetary.api.RepositoryApi.create,
+        packetary.api.Context(packetary.api.Configuration(**kwargs))
     )
 
 
