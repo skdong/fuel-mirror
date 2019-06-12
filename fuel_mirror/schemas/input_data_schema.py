@@ -99,7 +99,61 @@ SCHEMA = {
         "requirements": {
             "type": "object",
             "patternProperties": {
-                "^[0-9a-z_-]+$": {"type": "array"}
+                "^[0-9a-z_-]+$": {
+                    "type": "object",
+                    "anyOf": [
+                        {"required": ["packages"]},
+                        {"required": ["repositories"]},
+                        {"required": ["mandatory"]}
+                    ],
+                    "properties": {
+                        "repositories": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "required": ["name"],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "excludes": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "patternProperties": {
+                                                r"[a-z][\w_]*": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "packages": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "required": ["name"],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "versions": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "pattern": "^([<>]=?|=)\s+.+$"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "mandatory": {
+                            "enum": ["exact", "newest"]
+                        }
+                    }
+                }
             },
             "additionalProperties": False,
         },

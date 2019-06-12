@@ -27,18 +27,66 @@ repos:
         type: "rpm"
         priority: null
 
+    - &mos
+      name: "mos"
+      uri: http://localhost:8080/mos-centos/x86_64
+      type: "rpm"
+      priority: null
+
     -   &docker
         name: "docker"
         uri: https://download.docker.com/linux/centos/7/x86_64/stable
         type: "rpm"
         priority: null
 
+packages: &packages
+  - name: acl
+  - name: anacron
+  - name: bash-completion
+  - name: bridge-utils
+  - name: util-linux
+  - name: cloud-init
+  - name: curl
+  - name: daemonize
+  - name: gdisk
+  - name: lshw
+  - name: hwloc-gui
+  - name: lvm2
+  - name: mcollective
+  - name: mdadm
+  - name: device-mapper-multipath
+  - name: ntp
+  - name: ntpdate
+  - name: openssh-clients
+  - name: openssh-server
+  - name: puppet
+  - name: python-amqp
+  - name: ruby-augeas
+  - name: rubygem-ipaddress
+  - name: rubygem-json
+  - name: rubygem-netaddr
+  - name: rubygem-openstack
+  - name: ruby-shadow
+  - name: rubygem-stomp
+  - name: telnet
+  - name: vim
+  - name: virt-what
+  - name: vconfig
+  - name: nailgun-agent
+  - name: nailgun-mcagents
+  - name: network-checker
+  - name: kernel
+  - name: grub2
+  - name: bash-completion
+  - name: cloud-init
+
 docker_packages: &docker_packages
-    - docker-ce
+  - name: docker-ce
 
 
 groups:
     centos:
+      - *mos
         - *centos
         - *centos_updates
         - *centos_extras
@@ -48,4 +96,5 @@ groups:
         - *docker
 
 requirements:
+  centos: *packages
     docker: *docker_packages
