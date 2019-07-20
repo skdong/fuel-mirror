@@ -5,25 +5,35 @@ fuel_release_match:
 repos:
     -   &centos
         name: "centos"
-        uri: http://mirror.centos.org/centos/7/os/x86_64
+        uri: http://mirrors.aliyun.com/centos/7/os/x86_64
+        #uri: http://mirror.centos.org/centos/7/os/x86_64
         type: "rpm"
         priority: null
 
     -   &centos_updates
         name: "centos-updates"
-        uri: http://mirror.centos.org/centos/7/updates/x86_64
+        uri: http://mirrors.aliyun.com/centos/7/updates/x86_64
+        #uri: http://mirror.centos.com/centos/7/updates/x86_64
         type: "rpm"
         priority: null
 
     -   &centos_extras
         name: "centos-extras"
-        uri: http://mirror.centos.org/centos/7/extras/x86_64
+        uri: http://mirrors.aliyun.com/centos/7/extras/x86_64
+        #uri: http://mirror.centos.com/centos/7/extras/x86_64
         type: "rpm"
         priority: null
 
     -   &centos_plus
         name: "centos-plus"
-        uri: http://mirror.centos.org/centos/7/centosplus/x86_64
+        uri: http://mirrors.aliyun.com/centos/7/centosplus/x86_64
+        #uri: http://mirror.centos.com/centos/7/centosplus/x86_64
+        type: "rpm"
+        priority: null
+
+    -   &epel
+        name: "epel"
+        uri: http://mirrors.aliyun.com/epel/7/x86_64
         type: "rpm"
         priority: null
 
@@ -35,7 +45,7 @@ repos:
 
     -   &docker
         name: "docker"
-        uri: https://download.docker.com/linux/centos/7/x86_64/stable
+        uri: https://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/stable
         type: "rpm"
         priority: null
 
@@ -71,7 +81,6 @@ packages: &packages
   - name: telnet
   - name: vim
   - name: virt-what
-  - name: vconfig
   - name: nailgun-agent
   - name: nailgun-mcagents
   - name: network-checker
@@ -79,6 +88,51 @@ packages: &packages
   - name: grub2
   - name: bash-completion
   - name: cloud-init
+  - name: rsync
+  - name: device-mapper-persistent-data
+  - name: mcollective-common
+  - name: yum-utils
+  - name: facter
+  - name: pciutils
+  - name: lsof
+  - name: docker-ce
+  - name: unzip
+  - name: ipvsadm
+  - name: socat
+  - name: openssl
+  - name: nmap
+  - name: iputils
+  - name: wpa_supplicant
+  - name: libgudev1
+  - name: file
+  - name: systemd
+  - name: git
+  - name: uuid
+  - name: dracut-network
+  - name: python-devel
+  - name: dracut-config-rescue
+  - name: libcgroup
+  - name: libselinux-python
+  - name: NetworkManager
+  - name: tcpdump
+  - name: bind-libs-lite
+  - name: python-IPy
+  - name: gcc
+  - name: ca-certificates
+  - name: NetworkManager-wifi
+  - name: checkpolicy
+  - name: man
+  - name: audit
+  - name: audit-libs-python
+  - name: python2-pip
+  - name: NetworkManager-tui
+  - name: iftop
+  - name: e2fsprogs
+  - name: systemd-sysv
+  - name: e2fsprogs-libs
+  - name: make
+  - name: jq
+
 
 docker_packages: &docker_packages
   - name: docker-ce
@@ -86,6 +140,8 @@ docker_packages: &docker_packages
 
 groups:
     centos:
+        - *epel 
+        - *docker
         - *mos
         - *centos
         - *centos_updates
@@ -100,7 +156,5 @@ groups:
         - *centos_plus
 
 requirements:
-  centos: 
+    centos:
       packages: *packages
-  docker: 
-      packages: *docker_packages

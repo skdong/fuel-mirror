@@ -1,5 +1,5 @@
 # GLOBAL variables
-ubuntu_baseurl: &ubuntu_baseurl http://archive.ubuntu.com/ubuntu
+ubuntu_baseurl: &ubuntu_baseurl http://mirrors.aliyun.com/ubuntu
 mos_baseurl: &mos_baseurl http://mirror.fuel-infra.org/mos-repos/ubuntu/$mos_version
 
 fuel_release_match:
@@ -78,57 +78,95 @@ repos:
 # Packages are required to build bootstrap images for a system.
 # The mirror should contiain such packages in addition to local mirror.
 packages: &packages
-  - name: "daemonize"
-  - name: "fuel-agent"
-  - name: "hwloc"
-  - name: "i40e-dkms"
-  - name: "linux-firmware"
-  - name: "linux-headers-generic"
-  - name: "live-boot"
-  - name: "live-boot-initramfs-tools"
-  - name: "mc"
-  - name: "mcollective"
-  - name: "msmtp-mta"
-  - name: "multipath-tools"
-  - name: "multipath-tools-boot"
-  - name: "nailgun-agent"
-  - name: "nailgun-mcagents"
-  - name: "network-checker"
-  - name: "ntp"
-  - name: "ntpdate"
-  - name: "openssh-client"
-  - name: "openssh-server"
-  - name: "puppet"
-  - name: "squashfs-tools"
-  - name: "ubuntu-minimal"
-  - name: "vim"
-  - name: "wget"
-  - name: "xz-utils"
-  - name: "sysfsutils"
-  - name: "bridge-utils"
-  - name: "ifenslave"
-  - name: "irqbalance"
-  - name: "iputils-arping"
-  - name: "apt-transport-https"
-  - name: "linux-image-generic-lts-xenial"
-  - name: "cloud-init"
-  - name: "linux-headers-generic-lts-xenial"
-  - name: "telnet"
-  - name: "ubuntu-standard"
-  - name: "anacron"
-  - name: "rsyslog-gnutls"
-
-docker_packages: &docker_packages
+  - name: grep
+  - name: findutils
+  - name: build-essential
+  - name: nailgun-agent
+  - name: ruby-shadow
+  - name: lvm2
+  - name: vim
+  - name: linux-image-generic-lts-xenial
+  - name: puppet
+  - name: xz-utils
+  - name: gdisk
+  - name: ntpdate
+  - name: ruby-netaddr
+  - name: linux-firmware-nonfree
+  - name: python-amqp
+  - name: debconf-utils
+  - name: bridge-utils
+  - name: squashfs-tools
+  - name: openssh-server
+  - name: bash-completion
+  - name: sysfsutils
+  - name: hpsa-dkms
+  - name: mc
+  - name: ifenslave
+  - name: ubuntu-standard
+  - name: ubuntu-minimal
+  - name: nailgun-mcagents
+  - name: live-boot
+  - name: i40e-dkms
+  - name: bsdmainutils
+  - name: msmtp-mta
+  - name: curl
+  - name: acl
+  - name: mdadm
+  - name: multipath-tools-boot
+  - name: multipath-tools
+  - name: hwloc
+  - name: openssh-client
+  - name: linux-headers-generic-lts-xenial
+  - name: network-checker
+  - name: linux-headers-generic
+  - name: linux-firmware
+  - name: grub-pc
+  - name: ruby-openstack
+  - name: ruby-stomp
+  - name: irqbalance
+  - name: ruby-ipaddress
+  - name: mcollective
+  - name: live-boot-initramfs-tools
+  - name: ntp
+  - name: vlan
+  - name: anacron
+  - name: cloud-init
+  - name: fuel-agent
+  - name: telnet
+  - name: iputils-arping
+  - name: wget
+  - name: uuid-runtime
+  - name: apt-transport-https
+  - name: rsyslog-gnutls
+  - name: daemonize
+  - name: virt-what
+  - name: ruby-json
+  - name: ruby-augeas
   - name: docker-ce
+  - name: libsasl2-2
+  - name: libcurl3-gnutls
+  - name: libgssapi-krb5-2
+  - name: libk5crypto3
+  - name: libkrb5support0
+  - name: libasn1-8-heimdal
+  - name: libhcrypto4-heimdal
+  - name: libwind0-heimdal
+  - name: openssl
+  - name: librtmp1
+  - name: libkrb5-26-heimdal
+  - name: libroken18-heimdal
+  - name: libkrb5-3
+  - name: libkeyutils1
+  - name: libhx509-5-heimdal
+  - name: libgssapi3-heimdal
+  - name: libheimbase1-heimdal
+  - name: libheimntlm0-heimdal
+  - name: libsasl2-modules-db
+  - name: libldap-2.4-2
+
 
 
 groups:
-    mos:
-        - *mos
-        - *mos_updates
-        - *mos_security
-        - *mos_holdback
-
     ubuntu:
         - *ubuntu
         - *ubuntu_updates
@@ -137,12 +175,9 @@ groups:
         - *mos_updates
         - *mos_security
         - *mos_holdback
-
-    docker:
-        - *ubuntu
-        - *ubuntu_updates
-        - *ubuntu_security
         - *docker
+    base:
+        - *ubuntu
 
 
 #inheritance:
@@ -152,7 +187,7 @@ osnames:
     mos: ubuntu
 
 requirements:
+    base:
+      packages: *packages
     ubuntu: 
       packages: *packages
-    docker:
-      packages: *docker_packages

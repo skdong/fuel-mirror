@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* pass test
 * format code
 * set packages
 * revert url builder packetry user object directory
