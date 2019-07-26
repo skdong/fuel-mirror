@@ -1,0 +1,24 @@
+-   name: "centos"
+    uri: http://mirrors.aliyun.com/centos/7/os/x86_64
+    #uri: http://mirror.centos.org/centos/7/os/x86_64
+    type: "rpm"
+    priority: null
+
+-   name: "centos-updates"
+    uri: http://mirrors.aliyun.com/centos/7/updates/x86_64
+    #uri: http://mirror.centos.com/centos/7/updates/x86_64
+    type: "rpm"
+    priority: 99
+
+-   name: "centos-extras"
+    uri: http://mirrors.aliyun.com/centos/7/extras/x86_64
+    #uri: http://mirror.centos.com/centos/7/extras/x86_64
+    type: "rpm"
+    priority: null
+
+-   name: "centos-plus"
+    uri: http://mirrors.aliyun.com/centos/7/centosplus/x86_64
+    #uri: http://mirror.centos.com/centos/7/centosplus/x86_64
+    type: "rpm"
+    priority: null
+

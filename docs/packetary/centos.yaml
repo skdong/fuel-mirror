@@ -1,0 +1,173 @@
+fuel_release_match:
+   version: $openstack_version
+   operating_system: CentOS
+
+repos:
+    -   &centos
+        name: "centos"
+        uri: http://mirrors.aliyun.com/centos/7/os/x86_64
+        #uri: http://mirror.centos.org/centos/7/os/x86_64
+        type: "rpm"
+        priority: null
+
+    -   &centos_updates
+        name: "centos-updates"
+        uri: http://mirrors.aliyun.com/centos/7/updates/x86_64
+        #uri: http://mirror.centos.com/centos/7/updates/x86_64
+        type: "rpm"
+        priority: null
+
+    -   &centos_extras
+        name: "centos-extras"
+        uri: http://mirrors.aliyun.com/centos/7/extras/x86_64
+        #uri: http://mirror.centos.com/centos/7/extras/x86_64
+        type: "rpm"
+        priority: null
+
+    -   &centos_plus
+        name: "centos-plus"
+        uri: http://mirrors.aliyun.com/centos/7/centosplus/x86_64
+        #uri: http://mirror.centos.com/centos/7/centosplus/x86_64
+        type: "rpm"
+        priority: null
+
+    -   &epel
+        name: "epel"
+        uri: http://mirrors.aliyun.com/epel/7/x86_64
+        type: "rpm"
+        priority: null
+
+    -   &mos
+        name: "mos"
+        uri: http://localhost:8080/mos-centos/x86_64
+        type: "rpm"
+        priority: null
+
+    -   &docker
+        name: "docker"
+        uri: https://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/stable
+        type: "rpm"
+        priority: null
+
+openssl_packages: &openssl_packages
+  - name: openssl
+
+packages: &packages
+  - name: openssl
+  - name: acl
+  - name: anacron
+  - name: bash-completion
+  - name: bridge-utils
+  - name: util-linux
+  - name: cloud-init
+  - name: curl
+  - name: daemonize
+  - name: gdisk
+  - name: lshw
+  - name: hwloc-gui
+  - name: lvm2
+  - name: mcollective
+  - name: mdadm
+  - name: device-mapper-multipath
+  - name: ntp
+  - name: ntpdate
+  - name: openssh-clients
+  - name: openssh-server
+  - name: puppet
+  - name: python-amqp
+  - name: ruby-augeas
+  - name: rubygem-ipaddress
+  - name: rubygem-json
+  - name: rubygem-netaddr
+  - name: rubygem-openstack
+  - name: ruby-shadow
+  - name: rubygem-stomp
+  - name: telnet
+  - name: vim
+  - name: virt-what
+  - name: nailgun-agent
+  - name: nailgun-mcagents
+  - name: network-checker
+  - name: kernel
+  - name: grub2
+  - name: bash-completion
+  - name: cloud-init
+  - name: rsync
+  - name: device-mapper-persistent-data
+  - name: mcollective-common
+  - name: yum-utils
+  - name: facter
+  - name: pciutils
+  - name: lsof
+  - name: docker-ce
+  - name: unzip
+  - name: ipvsadm
+  - name: socat
+  - name: nmap
+  - name: iputils
+  - name: wpa_supplicant
+  - name: libgudev1
+  - name: file
+  - name: systemd
+  - name: git
+  - name: uuid
+  - name: dracut-network
+  - name: python-devel
+  - name: dracut-config-rescue
+  - name: libcgroup
+  - name: libselinux-python
+  - name: NetworkManager
+  - name: tcpdump
+  - name: bind-libs-lite
+  - name: python-IPy
+  - name: gcc
+  - name: ca-certificates
+  - name: NetworkManager-wifi
+  - name: checkpolicy
+  - name: man
+  - name: audit
+  - name: audit-libs-python
+  - name: python2-pip
+  - name: NetworkManager-tui
+  - name: iftop
+  - name: e2fsprogs
+  - name: systemd-sysv
+  - name: e2fsprogs-libs
+  - name: make
+  - name: jq
+  - name: python-pip
+  - name: sudo
+  - name: xfsprogs
+  - name: ipset
+
+
+docker_packages: &docker_packages
+  - name: docker-ce
+
+
+groups:
+    centos:
+        - *epel 
+        - *docker
+        - *mos
+        - *centos
+        - *centos_updates
+        - *centos_extras
+        - *centos_plus
+
+    openssl:
+        - *centos
+        - *centos_updates
+        - *centos_extras
+        - *centos_plus
+
+    docker:
+        - *docker
+        - *centos
+        - *centos_updates
+        - *centos_extras
+        - *centos_plus
+
+requirements:
+    openssl:
+      packages: *openssl_packages

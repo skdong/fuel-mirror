@@ -1,0 +1,397 @@
+# GLOBAL variables
+ubuntu_baseurl: &ubuntu_baseurl http://mirrors.aliyun.com/ubuntu
+mos_baseurl: &mos_baseurl http://mirror.fuel-infra.org/mos-repos/ubuntu/$mos_version
+
+fuel_release_match:
+   version: $openstack_version
+   operating_system: Ubuntu
+
+# Main is a required parameter which defines what repository will be used
+# for images creation and that mirror should contain all packages for minimal
+# system creation.
+repos:
+    -   &ubuntu
+        main: true
+        name: "ubuntu"
+        uri: *ubuntu_baseurl
+        suite: "xenial"
+        section: [main, multiverse, restricted, universe]
+        type: "deb"
+        priority: null
+
+    -   &ubuntu_updates
+        name: "ubuntu-updates"
+        uri: *ubuntu_baseurl
+        suite: "xenial-updates"
+        section: [main, multiverse, restricted, universe]
+        type: "deb"
+        priority: 3
+
+    -   &ubuntu_security
+        name: "ubuntu-security"
+        uri: *ubuntu_baseurl
+        suite: "xenial-security"
+        section: [main, multiverse, restricted, universe]
+        type: "deb"
+        priority: 3
+
+    -   &mos
+        name: "mos"
+        uri: "http://localhost:8080/ubuntu/x86_64"
+        suite: "mos$mos_version"
+        section: [main, restricted]
+        type: "deb"
+        priority: 1050
+
+    -   &mos_updates
+        name: "mos-updates"
+        uri: *mos_baseurl
+        suite: "mos$mos_version-updates"
+        section: [main, restricted]
+        type: "deb"
+        priority: 1050
+
+    -   &mos_security
+        name: "mos-security"
+        uri: *mos_baseurl
+        suite: "mos$mos_version-security"
+        section: [main, restricted]
+        type: "deb"
+        priority: 1050
+
+    -   &mos_holdback
+        name: "mos-holdback"
+        uri: *mos_baseurl
+        suite: "mos$mos_version-holdback"
+        section: [main, restricted]
+        type: "deb"
+        priority: 1100
+
+    -   &docker
+        name: "docker"
+        uri: "http://mirrors.aliyun.com/docker-ce/linux/ubuntu"
+        suite: "xenial"
+        section: [stable]
+        type: "deb"
+        priority: 1100
+
+# Packages are required to build bootstrap images for a system.
+# The mirror should contiain such packages in addition to local mirror.
+packages: &packages
+  - name: grep
+  - name: findutils
+  - name: build-essential
+  - name: nailgun-agent
+  - name: ruby-shadow
+  - name: lvm2
+  - name: vim
+  - name: linux-image-generic-lts-xenial
+  - name: puppet
+  - name: xz-utils
+  - name: gdisk
+  - name: ntpdate
+  - name: ruby-netaddr
+  - name: linux-firmware-nonfree
+  - name: python-amqp
+  - name: debconf-utils
+  - name: bridge-utils
+  - name: squashfs-tools
+  - name: openssh-server
+  - name: bash-completion
+  - name: sysfsutils
+  - name: hpsa-dkms
+  - name: mc
+  - name: ifenslave
+  - name: ubuntu-standard
+  - name: ubuntu-minimal
+  - name: nailgun-mcagents
+  - name: live-boot
+  - name: i40e-dkms
+  - name: bsdmainutils
+  - name: msmtp-mta
+  - name: curl
+  - name: acl
+  - name: mdadm
+  - name: multipath-tools-boot
+  - name: multipath-tools
+  - name: hwloc
+  - name: openssh-client
+  - name: linux-headers-generic-lts-xenial
+  - name: network-checker
+  - name: linux-headers-generic
+  - name: linux-firmware
+  - name: grub-pc
+  - name: ruby-openstack
+  - name: ruby-stomp
+  - name: irqbalance
+  - name: ruby-ipaddress
+  - name: mcollective
+  - name: live-boot-initramfs-tools
+  - name: ntp
+  - name: vlan
+  - name: anacron
+  - name: cloud-init
+  - name: fuel-agent
+  - name: telnet
+  - name: iputils-arping
+  - name: wget
+  - name: uuid-runtime
+  - name: apt-transport-https
+  - name: rsyslog-gnutls
+  - name: daemonize
+  - name: virt-what
+  - name: ruby-json
+  - name: ruby-augeas
+  - name: docker-ce
+  - name: libsasl2-2
+  - name: libcurl3-gnutls
+  - name: libgssapi-krb5-2
+  - name: libk5crypto3
+  - name: libkrb5support0
+  - name: libasn1-8-heimdal
+  - name: libhcrypto4-heimdal
+  - name: libwind0-heimdal
+  - name: openssl
+  - name: librtmp1
+  - name: libkrb5-26-heimdal
+  - name: libroken18-heimdal
+  - name: libkrb5-3
+  - name: libkeyutils1
+  - name: libhx509-5-heimdal
+  - name: libgssapi3-heimdal
+  - name: libheimbase1-heimdal
+  - name: libheimntlm0-heimdal
+  - name: libsasl2-modules-db
+  - name: libldap-2.4-2
+
+
+base_packages: &base_packages
+  - name: adduser
+  - name: apt
+  - name: apt-transport-https
+  - name: apt-utils
+  - name: base-files
+  - name: base-passwd
+  - name: bash
+  - name: bsdutils
+  - name: busybox-initramfs
+  - name: bzip2
+  - name: ca-certificates
+  - name: console-setup
+  - name: console-setup-linux
+  - name: coreutils
+  - name: cpio
+  - name: cron
+  - name: dash
+  - name: debconf
+  - name: debconf-i18n
+  - name: debianutils
+  - name: dh-python
+  - name: diffutils
+  - name: distro-info-data
+  - name: dpkg
+  - name: e2fslibs:amd64
+  - name: e2fsprogs
+  - name: eject
+  - name: file
+  - name: findutils
+  - name: gcc-5-base:amd64
+  - name: gcc-6-base:amd64
+  - name: gnupg
+  - name: gpgv
+  - name: grep
+  - name: gzip
+  - name: hostname
+  - name: ifupdown
+  - name: init
+  - name: init-system-helpers
+  - name: initramfs-tools
+  - name: initramfs-tools-bin
+  - name: initramfs-tools-core
+  - name: initscripts
+  - name: insserv
+  - name: iproute2
+  - name: iputils-ping
+  - name: isc-dhcp-client
+  - name: isc-dhcp-common
+  - name: kbd
+  - name: keyboard-configuration
+  - name: klibc-utils
+  - name: kmod
+  - name: less
+  - name: libacl1:amd64
+  - name: libapparmor1:amd64
+  - name: libapt-inst2.0:amd64
+  - name: libapt-pkg5.0:amd64
+  - name: libasn1-8-heimdal:amd64
+  - name: libatm1:amd64
+  - name: libattr1:amd64
+  - name: libaudit-common
+  - name: libaudit1:amd64
+  - name: libblkid1:amd64
+  - name: libbsd0:amd64
+  - name: libbz2-1.0:amd64
+  - name: libc-bin
+  - name: libc6:amd64
+  - name: libcap2:amd64
+  - name: libcap2-bin
+  - name: libcomerr2:amd64
+  - name: libcryptsetup4:amd64
+  - name: libcurl3-gnutls:amd64
+  - name: libdb5.3:amd64
+  - name: libdebconfclient0:amd64
+  - name: libdevmapper1.02.1:amd64
+  - name: libdns-export162
+  - name: libestr0
+  - name: libexpat1:amd64
+  - name: libfdisk1:amd64
+  - name: libffi6:amd64
+  - name: libfribidi0:amd64
+  - name: libgcc1:amd64
+  - name: libgcrypt20:amd64
+  - name: libgmp10:amd64
+  - name: libgnutls-openssl27:amd64
+  - name: libgnutls30:amd64
+  - name: libgpg-error0:amd64
+  - name: libgssapi-krb5-2:amd64
+  - name: libgssapi3-heimdal:amd64
+  - name: libhcrypto4-heimdal:amd64
+  - name: libheimbase1-heimdal:amd64
+  - name: libheimntlm0-heimdal:amd64
+  - name: libhogweed4:amd64
+  - name: libhx509-5-heimdal:amd64
+  - name: libidn11:amd64
+  - name: libisc-export160
+  - name: libjson-c2:amd64
+  - name: libk5crypto3:amd64
+  - name: libkeyutils1:amd64
+  - name: libklibc
+  - name: libkmod2:amd64
+  - name: libkrb5-26-heimdal:amd64
+  - name: libkrb5-3:amd64
+  - name: libkrb5support0:amd64
+  - name: libldap-2.4-2:amd64
+  - name: liblocale-gettext-perl
+  - name: liblz4-1:amd64
+  - name: liblzma5:amd64
+  - name: libmagic1:amd64
+  - name: libmnl0:amd64
+  - name: libmount1:amd64
+  - name: libmpdec2:amd64
+  - name: libncurses5:amd64
+  - name: libncursesw5:amd64
+  - name: libnettle6:amd64
+  - name: libnewt0.52:amd64
+  - name: libnih1:amd64
+  - name: libp11-kit0:amd64
+  - name: libpam-modules:amd64
+  - name: libpam-modules-bin
+  - name: libpam-runtime
+  - name: libpam0g:amd64
+  - name: libpcre3:amd64
+  - name: libpng12-0:amd64
+  - name: libpopt0:amd64
+  - name: libprocps4:amd64
+  - name: libpython3-stdlib:amd64
+  - name: libpython3.5-minimal:amd64
+  - name: libpython3.5-stdlib:amd64
+  - name: libreadline6:amd64
+  - name: libroken18-heimdal:amd64
+  - name: librtmp1:amd64
+  - name: libsasl2-2:amd64
+  - name: libsasl2-modules-db:amd64
+  - name: libseccomp2:amd64
+  - name: libselinux1:amd64
+  - name: libsemanage-common
+  - name: libsemanage1:amd64
+  - name: libsepol1:amd64
+  - name: libslang2:amd64
+  - name: libsmartcols1:amd64
+  - name: libsqlite3-0:amd64
+  - name: libss2:amd64
+  - name: libssl1.0.0:amd64
+  - name: libstdc++6:amd64
+  - name: libsystemd0:amd64
+  - name: libtasn1-6:amd64
+  - name: libtext-charwidth-perl
+  - name: libtext-iconv-perl
+  - name: libtext-wrapi18n-perl
+  - name: libtinfo5:amd64
+  - name: libudev1:amd64
+  - name: libusb-0.1-4:amd64
+  - name: libustr-1.0-1:amd64
+  - name: libuuid1:amd64
+  - name: libwind0-heimdal:amd64
+  - name: libxtables11:amd64
+  - name: linux-base
+  - name: locales
+  - name: login
+  - name: logrotate
+  - name: lsb-base
+  - name: lsb-release
+  - name: makedev
+  - name: mawk
+  - name: mime-support
+  - name: mount
+  - name: multiarch-support
+  - name: ncurses-base
+  - name: ncurses-bin
+  - name: net-tools
+  - name: netbase
+  - name: netcat-openbsd
+  - name: openssl
+  - name: passwd
+  - name: perl-base
+  - name: procps
+  - name: python3
+  - name: python3-minimal
+  - name: python3.5
+  - name: python3.5-minimal
+  - name: readline-common
+  - name: resolvconf
+  - name: rsyslog
+  - name: sed
+  - name: sensible-utils
+  - name: sudo
+  - name: systemd
+  - name: systemd-sysv
+  - name: sysv-rc
+  - name: sysvinit-utils
+  - name: tar
+  - name: tzdata
+  - name: ubuntu-keyring
+  - name: ubuntu-minimal
+  - name: ucf
+  - name: udev
+  - name: ureadahead
+  - name: util-linux
+  - name: vim-common
+  - name: vim-tiny
+  - name: whiptail
+  - name: xkb-data
+  - name: zlib1g:amd64
+
+groups:
+    ubuntu:
+        - *ubuntu
+        - *ubuntu_updates
+        - *ubuntu_security
+        - *mos
+        - *mos_updates
+        - *mos_security
+        - *mos_holdback
+        - *docker
+    base:
+        - *ubuntu
+
+
+
+osnames:
+    mos: ubuntu
+
+requirements:
+    ubuntu: 
+      packages: *packages
+
+
+

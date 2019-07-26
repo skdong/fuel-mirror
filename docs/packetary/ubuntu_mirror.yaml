@@ -1,0 +1,40 @@
+
+
+# Main is a required parameter which defines what repository will be used
+# for images creation and that mirror should contain all packages for minimal
+# system creation.
+- name: "ubuntu_base"
+  uri: http://mirrors.aliyun.com/ubuntu
+  suite: "xenial"
+  section: [main]
+  type: "deb"
+  priority: null
+
+- name: "ubuntu"
+  uri: http://mirrors.aliyun.com/ubuntu
+  suite: "xenial"
+  section: [main, multiverse, restricted, universe]
+  type: "deb"
+  priority: null
+
+- name: "ubuntu-updates"
+  uri: http://mirrors.aliyun.com/ubuntu
+  suite: "xenial-updates"
+  section: [main, multiverse, restricted, universe]
+  type: "deb"
+  priority: 3
+
+- name: "ubuntu-security"
+  uri: http://mirrors.aliyun.com/ubuntu
+  suite: "xenial-security"
+  section: [main, multiverse, restricted, universe]
+  type: "deb"
+  priority: 3
+
+- name: "docker"
+  uri: "http://mirrors.aliyun.com/docker-ce/linux/ubuntu"
+  suite: "xenial"
+  section: [stable]
+  type: "deb"
+  priority: 1100
+
