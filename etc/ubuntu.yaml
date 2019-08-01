@@ -24,7 +24,7 @@ repos:
         suite: "xenial-updates"
         section: [main, multiverse, restricted, universe]
         type: "deb"
-        priority: 3
+        priority: null
 
     -   &ubuntu_security
         name: "ubuntu-security"
@@ -32,7 +32,7 @@ repos:
         suite: "xenial-security"
         section: [main, multiverse, restricted, universe]
         type: "deb"
-        priority: 3
+        priority: null
 
     -   &mos
         name: "mos"
@@ -53,60 +53,105 @@ repos:
 # Packages are required to build bootstrap images for a system.
 # The mirror should contiain such packages in addition to local mirror.
 packages: &packages
-  - name: nailgun-agent
-  - name: iputils-arping
-  - name: ruby-shadow
-  - name: lvm2
+  - name: acpi-support
+  - name: anacron
+  - name: aptitude
+  - name: atop
+  - name: acct
+  - name: bc
+  - name: build-essential
+  - name: conntrackd
+  - name: cpu-checker
+  - name: cpufrequtils
+  - name: debconf-utils
+  - name: devscripts
+  - name: fping
+  - name: git
+  - name: grub-pc
+  - name: htop
+  - name: hwloc
+  - name: ifenslave
+  - name: iperf
+  - name: iptables-persistent
+  - name: irqbalance
+  - name: language-pack-en
+  - name: libapache2-mod-fastcgi
+  - name: libmysqlclient18
+  - name: libicu-dev
+  - name: libnss3-tools
+  - name: libseccomp2
+  - name: live-boot
+  - name: livecd-rootfs
+  - name: monit
+  - name: msmtp-mta
+  - name: mc
+  - name: memcached
+  - name: multipath-tools
+  - name: multipath-tools-boot
+  - name: nginx
+  - name: ntp
+  - name: percona-toolkit
+  - name: percona-xtrabackup
+  - name: pm-utils
+  - name: puppet
+  - name: python-lesscpy
+  - name: python-pip
+  - name: rsyslog-gnutls
+  - name: rsyslog-relp
+  - name: screen
+  - name: squashfs-tools
+  - name: swift-plugin-s3
+  - name: sysfsutils
+  - name: sysstat
+  - name: telnet
+  - name: tmux
+  - name: traceroute
+  - name: ubuntu-standard
   - name: vim
+  - name: virt-what
+  - name: xinetd
+  - name: xmlstarlet
+  - name: tftpd-hpa
+  - name: syslinux
+  - name: systemd
+  - name: iputils-arping
+  - name: lvm2
+  - name: linux-firmware
+  - name: linux-headers-generic
   - name: linux-image-generic-lts-xenial
   - name: linux-headers-generic-lts-xenial
   - name: linux-firmware-nonfree
-  - name: puppet
   - name: ntpdate
   - name: python-amqp
   - name: debconf-utils
   - name: bridge-utils
-  - name: squashfs-tools
   - name: bash-completion
-  - name: sysfsutils
   - name: hpsa-dkms
-  - name: mc
-  - name: ifenslave
-  - name: ubuntu-standard
-  - name: ubuntu-minimal
+  - name: ruby-shadow
+  - name: ruby-json
+  - name: ruby-augeas
+  - name: fuel-agent
   - name: nailgun-mcagents
+  - name: nailgun-agent
+  - name: network-checker
+  - name: ruby-openstack
   - name: i40e-dkms
   - name: curl
   - name: acl
-  - name: hwloc
   - name: openssh-server
   - name: openssh-client
-  - name: network-checker
-  - name: linux-headers-generic
-  - name: linux-firmware
-  - name: grub-pc
-  - name: ruby-openstack
   - name: ruby-stomp
-  - name: irqbalance
   - name: ruby-ipaddress
   - name: mcollective
   - name: live-boot-initramfs-tools
-  - name: ntp
   - name: cloud-init
-  - name: fuel-agent
   - name: wget
   - name: apt-transport-https
   - name: daemonize
-  - name: ruby-json
-  - name: ruby-augeas
   - name: openssl
   - name: ca-certificates
-  - name: docker-ce
-  - name: live-boot
   - name: xz-utils 
-  - name: msmtp-mta
-  - name: multipath-tools-boot 
-  - name: multipath-tools  
+  - name: docker-ce
 
 groups:
     ubuntu:
@@ -122,3 +167,4 @@ osnames:
 requirements:
     ubuntu: 
       packages: *packages
+      mandatory: exact
